@@ -1,6 +1,6 @@
 {
     "name": "af-estimate",
-    "version": "0.0.3",
+    "version": "0.0.2",
     "description": "A highly specialized function library",
     "main": "index.js",
     "scripts": {
