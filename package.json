@@ -1,0 +1,31 @@
+{
+    "name": "af-estimate",
+    "version": "0.0.3",
+    "description": "A highly specialized function library",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha --require @babel/register 'test/**/**spec.js'"
+    },
+    "author": "Viacheslav Makarov <npmjs@bazilio.ru>",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Bazilio-san/af-estimate.git"
+    },
+    "license": "ISC",
+    "files": [
+        "index.js"
+    ],
+    "dependencies": {
+        "af-echo": "^0.0.8",
+        "af-fns": "^0.0.3"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.14.3",
+        "@babel/register": "^7.13.16",
+        "eslint": "^7.27.0",
+        "eslint-config-airbnb-base": "^14.2.1",
+        "eslint-friendly-formatter": "^4.0.1",
+        "eslint-loader": "^4.0.2",
+        "eslint-plugin-import": "^2.23.3"
+    }
+}
