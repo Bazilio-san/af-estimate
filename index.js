@@ -67,7 +67,7 @@ class Estimate {
     if (process.stdin.isTTY && roll) {
       process.stdout.write(`\x1b[${roll}A${msg}\x1b[K\n`);
     } else {
-      echo(msg, 0);
+      echo.echo(msg, 0);
     }
   }
 
@@ -92,7 +92,7 @@ class Estimate {
     if (process.stdin.isTTY && roll) {
       process.stdout.write(`\x1b[${roll}A${msg}\x1b[K\n`);
     } else {
-      echo(msg, options);
+      echo.echo(msg, options);
     }
   }
 
