@@ -1,9 +1,5 @@
-/test/
-/misc/
-/config/
 /.run/
 /.editorconfig
 /.eslintignore
-/.eslintrc
-/.mocharc.js
+/.eslintrc.js
 /yarn.lock
