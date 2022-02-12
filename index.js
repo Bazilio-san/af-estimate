@@ -60,7 +60,7 @@ class Estimate {
     } else {
       leftString = '';
     }
-    const processedTime = options.showTakenTime ? `${reset} / Прошло ${magenta}${this.getTaken()} ${reset}` : '';
+    const processedTime = options.showTakenTime ? `${reset} / Left ${magenta}${this.getTaken()} ${reset}` : '';
     const roll = options.roll || 0;
     const msgAdd = options.msg || '';
     const msg = `${reset}Processed ${processedString}${reset}. ${leftString}${processedTime}${msgAdd ? `${reset} / ${msgAdd}` : ''} `;
