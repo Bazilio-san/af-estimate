@@ -38,7 +38,7 @@ export class Estimate {
 
   public echo: any;
 
-  constructor (public total: number = 0) {
+  constructor (public total?: number) {
     this.startTime = +new Date();
     this.startCircleTime = +new Date();
     this.echo = echo;
