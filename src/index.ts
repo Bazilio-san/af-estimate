@@ -32,16 +32,13 @@ export interface TEchoOptions {
 }
 
 export class Estimate {
-  private total: number;
+  public startTime: number;
 
-  private startTime: number;
+  public startCircleTime: number;
 
-  private startCircleTime: number;
+  public echo: any;
 
-  private echo: any;
-
-  constructor (total: number) {
-    this.total = total;
+  constructor (public total: number = 0) {
     this.startTime = +new Date();
     this.startCircleTime = +new Date();
     this.echo = echo;
@@ -78,7 +75,7 @@ export class Estimate {
       options = Object.assign(defaultOptions, options);
     }
     if (!this.total) {
-      echo.echo(`"Estimate": can't calculate time, "total" parameter is not set`, 0);
+      echo.echo(`"Estimate": can't calculate time, "total" parameter is not set`);
       return;
     }
 
@@ -102,7 +99,7 @@ export class Estimate {
     if (process.stdin.isTTY && roll) {
       process.stdout.write(`\x1b[${roll}A${msg}\x1b[K\n`);
     } else {
-      echo.echo(msg, 0);
+      echo.echo(msg);
     }
   }
 
