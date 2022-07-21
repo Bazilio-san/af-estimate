@@ -3,15 +3,51 @@ const echo = require('af-echo');
 
 const { reset, colorMagenta: magenta } = echo;
 
-class Estimate {
-  constructor (total) {
+export interface IEstimatePrintOptions {
+  showPercent: boolean,
+  showCount: boolean,
+  showTakenTime: boolean,
+  roll: number,
+  msg: string,
+  of?: {
+    text: string,
+    processed: number | null,
+    total: number | null
+  }
+}
+
+export interface TEchoOptions {
+  colorNum?: number,
+  bgColorNum?: number,
+  bold?: boolean,
+  underscore?: boolean,
+  reverse?: boolean,
+  prefix?: string,
+  consoleFunction?: 'dir' | 'log',
+  logger?: any,
+  estimate?: any,
+  estimateReset?: boolean,
+  prettyJSON?: boolean,
+  linesBefore?: number,
+}
+
+export class Estimate {
+  private total: number;
+
+  private startTime: number;
+
+  private startCircleTime: number;
+
+  private echo: any;
+
+  constructor (total: number) {
     this.total = total;
     this.startTime = +new Date();
     this.startCircleTime = +new Date();
     this.echo = echo;
   }
 
-  startProgress (total, roll = 0, msgAdd = undefined, echoLevel = 2) {
+  startProgress (total: number, roll: number = 0, msgAdd: string = '', echoLevel: number = 2) {
     this.total = total;
     this.startCircleTime = +new Date();
     const msg = `${reset}Time taken to start processing: ${magenta}${
@@ -23,18 +59,17 @@ class Estimate {
     }
   }
 
-  setTotal (total) {
+  setTotal (total: number) {
     this.total = total;
   }
 
-  print (processed, options) {
-    const defaultOptions = {
+  print (processed: number, options: string | IEstimatePrintOptions) {
+    const defaultOptions: IEstimatePrintOptions = {
       showPercent: true,
       showCount: true,
       showTakenTime: true,
       roll: 0,
       msg: '',
-      of: null, // {text: '', processed: null,  total: null}
     };
     if (typeof options === 'string') {
       defaultOptions.msg = options;
@@ -47,9 +82,9 @@ class Estimate {
       return;
     }
 
-    const txtOf = (options.of && options.of.text) || '';
-    const txtProcessed = (options.of && options.of.processed) || processed;
-    const txtTotal = (options.of && options.of.total) || this.total;
+    const txtOf = options.of?.text || '';
+    const txtProcessed = options.of?.processed || processed;
+    const txtTotal = options.of?.total || this.total;
     let processedString = options.showPercent ? `${magenta}${Math.ceil((txtProcessed / txtTotal) * 100)}${reset}%` : '';
     const countString = options.showCount ? `${txtOf}${magenta}${txtProcessed} ${reset}out of ${magenta}${txtTotal}` : '';
     processedString += (processedString ? ' (' : '') + countString + (processedString ? `${reset})` : '');
@@ -71,23 +106,23 @@ class Estimate {
     }
   }
 
-  getTaken (isReset = false, isShowMilliseconds = false) {
-    const taken = formatMilliseconds(+new Date() - this.startTime, isShowMilliseconds);
+  getTaken (isReset: boolean = false, isShowMilliseconds: boolean = false): string {
+    const taken = formatMilliseconds(+new Date() - this.startTime, isShowMilliseconds) as string;
     if (isReset) {
       this.reset();
     }
     return taken;
   }
 
-  getRest (processed, fromStart) {
+  getRest (processed: number, fromStart?: boolean): string {
     if (processed && this.total) {
       const msLeft = (+new Date() - (fromStart ? this.startTime : this.startCircleTime)) * ((this.total / processed) - 1);
-      return formatMilliseconds(msLeft);
+      return formatMilliseconds(msLeft) as string;
     }
     return '';
   }
 
-  taken (roll = 0, msgAdd = '', options = undefined) {
+  taken (roll?: number, msgAdd?: string, options?: TEchoOptions): void {
     const msg = `${reset}Time spent: ${magenta}${this.getTaken()}${msgAdd ? `${reset} / ${msgAdd}` : ''}`;
     if (process.stdin.isTTY && roll) {
       process.stdout.write(`\x1b[${roll}A${msg}\x1b[K\n`);
@@ -96,10 +131,8 @@ class Estimate {
     }
   }
 
-  reset () {
+  reset (): void {
     this.startTime = +new Date();
     this.startCircleTime = +new Date();
   }
 }
-
-module.exports = Estimate;

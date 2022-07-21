@@ -1,26 +1,57 @@
 {
-    "name": "af-estimate",
-    "version": "1.0.4",
-    "description": "A highly specialized function library",
-    "main": "index.js",
-    "scripts": {
-        "lint": "eslint --ext .js ./",
-        "lint:fix": "eslint --fix --ext .js ./"
-    },
-    "author": "Viacheslav Makarov <npmjs@bazilio.ru>",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Bazilio-san/af-estimate.git"
-    },
-    "license": "ISC",
-    "files": [
-        "index.js"
-    ],
-    "dependencies": {
-        "af-echo": "^0.0.16",
-        "af-fns": "^0.0.6"
-    },
-    "devDependencies": {
-        "eslint-config-af-22": "^1.0.4"
-    }
+  "name": "af-estimate",
+  "version": "2.0.5",
+  "description": "A highly specialized function library",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "author": "Viacheslav Makarov <npmjs@bazilio.ru>",
+  "license": "ISC",
+  "scripts": {
+    "clean": "shx rm -rf dist/*",
+    "build": "tsc -b tsconfig.json tsconfig.esm.json tsconfig.types.json",
+    "lint": "eslint . --ext .ts ",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "cb": "npm run clean && npm run build",
+    "release": "npm run lint:fix && npm run clean && npm run build"
+  },
+  "dependencies": {
+    "af-echo": "^0.0.16",
+    "af-fns": "^0.0.11"
+  },
+  "devDependencies": {
+    "@babel/register": "^7.17.7",
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "eslint-config-af-22": "^1.0.4",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "np": "^7.6.2",
+    "shx": "^0.3.4",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
+  },
+  "np": {
+    "yarn": false,
+    "contents": "."
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist/cjs",
+    "dist/esm",
+    "dist/types",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bazilio-san/af-estimate.git"
+  },
+  "engines": {
+    "node": ">= 12",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
 }
