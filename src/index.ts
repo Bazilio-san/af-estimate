@@ -61,7 +61,7 @@ export class Estimate {
     this.total = total;
   }
 
-  print (processed: number, options: string | IEstimatePrintOptions) {
+  print (processed: number, options?: IEstimatePrintOptions) {
     const defaultOptions: IEstimatePrintOptions = {
       showPercent: true,
       showCount: true,
@@ -70,12 +70,7 @@ export class Estimate {
       prefix: '',
       msg: '',
     };
-    if (typeof options === 'string') {
-      defaultOptions.msg = options;
-      options = defaultOptions;
-    } else {
-      options = Object.assign(defaultOptions, options);
-    }
+    options = Object.assign(defaultOptions, options || {});
     if (!this.total) {
       echo.echo(`"Estimate": can't calculate time, "total" parameter is not set`);
       return;
