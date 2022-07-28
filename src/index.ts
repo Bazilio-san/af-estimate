@@ -4,12 +4,12 @@ const echo = require('af-echo');
 const { reset, colorMagenta: magenta } = echo;
 
 export interface IEstimatePrintOptions {
-  showPercent: boolean,
-  showCount: boolean,
-  showTakenTime: boolean,
-  roll: number,
-  prefix: string,
-  msg: string,
+  showPercent?: boolean,
+  showCount?: boolean,
+  showTakenTime?: boolean,
+  roll?: number,
+  prefix?: string,
+  msg?: string,
   of?: {
     text: string,
     processed: number | null,
