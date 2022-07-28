@@ -8,6 +8,7 @@ export interface IEstimatePrintOptions {
   showCount: boolean,
   showTakenTime: boolean,
   roll: number,
+  prefix: string,
   msg: string,
   of?: {
     text: string,
@@ -66,6 +67,7 @@ export class Estimate {
       showCount: true,
       showTakenTime: true,
       roll: 0,
+      prefix: '',
       msg: '',
     };
     if (typeof options === 'string') {
@@ -92,10 +94,10 @@ export class Estimate {
     } else {
       leftString = '';
     }
-    const processedTime = options.showTakenTime ? `${reset} / Left ${magenta}${this.getTaken()} ${reset}` : '';
+    const processedTime = options.showTakenTime ? `${reset} / 🕒 ${magenta}${this.getTaken()} ${reset}` : '';
     const roll = options.roll || 0;
     const msgAdd = options.msg || '';
-    const msg = `${reset}Processed ${processedString}${reset}. ${leftString}${processedTime}${msgAdd ? `${reset} / ${msgAdd}` : ''} `;
+    const msg = `${reset}${options.prefix || ''}Processed ${processedString}${reset}. ${leftString}${processedTime}${msgAdd ? `${reset} / ${msgAdd}` : ''} `;
     if (process.stdin.isTTY && roll) {
       process.stdout.write(`\x1b[${roll}A${msg}\x1b[K\n`);
     } else {
