@@ -97,6 +97,7 @@ export class Estimate {
     const processedTime = options.showTakenTime ? `${reset} / 🕒 ${magenta}${this.getTaken()} ${reset}` : '';
     const roll = options.roll || 0;
     const msgAdd = options.msg || '';
+
     const msg = `${reset}${options.prefix || ''}Processed ${processedString}${reset}. ${leftString}${processedTime}${msgAdd ? `${reset} / ${msgAdd}` : ''} `;
     if (process.stdin.isTTY && roll) {
       process.stdout.write(`\x1b[${roll}A${msg}\x1b[K\n`);
