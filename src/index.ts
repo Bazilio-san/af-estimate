@@ -70,6 +70,7 @@ export class Estimate {
       prefix: '',
       msg: '',
     };
+
     options = Object.assign(defaultOptions, options || {});
     if (!this.total) {
       echo.echo(`"Estimate": can't calculate time, "total" parameter is not set`);
